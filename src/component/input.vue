@@ -26,19 +26,23 @@
       </div>
       <slot></slot>
     </div>
+    <Toast :text='errmessage' :value='show' position='middle' type='text' @on-hide='()=>{this.show = false}'/>
   </div>
-
-
 </template>
 
 <script>
+  import { Toast } from 'vux'
 
   export default {
     data() {
       return {
         isFocus: false,
-        isError: false
+        isError: false,
+        show:false
       }
+    },
+    components:{
+      Toast
     },
     methods: {
       onChange(e) {
@@ -58,7 +62,6 @@
       },
       blur(e) {
         if (!this.disable) {
-          console.log(e.target.value)
           this.isFocus = false
           //矫正ios聚焦不回弹
           this.blurAdjust()
@@ -66,8 +69,7 @@
           this.isError = !this.validateRule(e.target.value)
           // 如果不符合则toast提示
           if (!this.validateRule(e.target.value) && e.target.value) {
-            console.log(this.$vux)
-            this.$vux.toast.text(this.errmessage, 'middle')
+            this.show = true
           } else {
             if (!e.target.value) this.isError = false
           }
@@ -88,7 +90,6 @@
       // 解决苹果不回弹页面
       blurAdjust(e) {
         setTimeout(() => {
-
           if (document.activeElement.tagName == 'INPUT' || document.activeElement.tagName == 'TEXTAREA') {
             return
           }
@@ -103,15 +104,6 @@
             document.activeElement.scrollIntoViewIfNeeded(true);
           }
         }, 100)
-      }
-    },
-    watch: {
-      value(newValue, oldValue) {
-        // if (newValue) {
-        // 	this.isFocus = true
-        // } else {
-        // 	this.isFocus = false
-        // }
       }
     },
     props: {
