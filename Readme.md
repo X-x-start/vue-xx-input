@@ -1,18 +1,32 @@
 # vue-xx-input
 
 > this is a component for input
+这是一个用于移动端的input插件，里面包含了删除 校验提示功能
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
+# how to install
+npm i vue-xx-input 
+ 
+# how to use 
 
-# serve with hot reload at localhost:8080
-npm run dev
+#demo  
+ <Input label='准驾车型'
+           v-model='data'
+           :validateRule='carClassRule'
+           :lineIsShow='true'
+           errmessage='准驾车型格式输入有误'
+           placeholder='请输入准驾车型'
+           :maxlength='10'
+           :istoUpperCase='true'
+    ></Input>
 
-# build for production with minification
-npm run build
-```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+data 为绑定的input值
+validateRule 传入的校验规则
+lineIsShow  是否展示下划线
+errmessage  校验错误提示内容
+placeholder 输入提示
+maxlength 最大长度
+istoUpperCase 是否自动转大写
+label 左边标题
+disable 是否禁止改写
